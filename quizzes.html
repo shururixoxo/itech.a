@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITECH.A</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+</div>
+<header>
+<nav>
+<ul>
+<li><button type="button" class="button"><a href="home.html">Home</a></button></li>
+<li><button type="button" class="button"><a href="about.html">About</a></button></li>
+<li><button type="button" class="button"><a href="quizzes.html">Quizzes</a></button></li>
+<li><button type="button" class="button"><a href="contacts.html">Contact</a></button></li>
+</ul>
+</nav>
+</header> 
+
+<body>
+    <div class="container">
+        <h1>Quiz HTML</h1>
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <div id="score">Score: 0</div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What element is a container for all the head elements, and may include the document title, scripts, styles, meta information, and more??",
+                options: ["title/title", "br/br", "body/body", "head/head"],
+                answer: "head/head"
+            },
+            {
+                question: "What tag is used to render or transform text into an emphasized (italics) version?",
+                options: ["em", "a", "strong", "blockquote"],
+                answer: "em"
+            },
+            {
+                question: "What tag is required in all HTML documents, and is used to define the title?",
+                options: ["title/title", "br/br", "body/body", "head/head"],
+                answer: "title/title"
+            },
+            {
+                question: "What tag is used to render or transform text into an important (bold) version?",
+                options: ["a", "strong", "blockquote", "em"],
+                answer: "strong"
+            }, 
+            {
+                question: "What group of tags are used to define the text headers in the body of the HTML document?",
+                options: ["button", "footer", "td", "h1-h6"],
+                answer: "h1-h6"
+            },
+            {
+                question: "What declaration MUST be included as the first item in an HTML document before the tag and is used to provide instructions to the web browser?",
+                options: ["!DOCTYPE", "embed", "code", "caption"],
+                answer: "!DOCTYPE"
+            },
+            {
+                question: "What tag can be used to insert a line break or blank line in an HTML document?",
+                options: ["head/head", "title/title", "body/body", "br/br"],
+                answer: "br/br"
+            },
+            {
+                question: "What tag defines a division or the beginning/end of an individual section in an HTML document?",
+                options: ["<table>", "<meta>", "<img>", "<div>"],
+                answer: "<div>"
+            },
+            {
+                question: "What tag is used to define the metadata about an HTML document, and must always be included inside the element?",
+                options: ["<table>", "<meta>", "<img>", "<div>"],
+                answer: "<meta>"
+            },
+            {
+                question: "What tag defines the body of the HTML document, and usually includes all the contents such as the text, hyperlinks, images, tables, lists, and more?",
+                options: ["<table>", "<meta>", "<img>", "<body>"],
+                answer: "<body>"
+            },
+            
+
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const scoreElement = document.getElementById('score');
+
+        function displayQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            optionsElement.innerHTML = '';
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.addEventListener('click', () => checkAnswer(option));
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            const currentQuestion = questions[currentQuestionIndex];
+            if (selectedOption === currentQuestion.answer) {
+                score++;
+            }
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            questionElement.textContent = 'Quiz Completed!';
+            optionsElement.innerHTML = '';
+            scoreElement.textContent = `Your Score: ${score} / ${questions.length}`;
+        }
+
+        displayQuestion();
+    </script>
+</body>
